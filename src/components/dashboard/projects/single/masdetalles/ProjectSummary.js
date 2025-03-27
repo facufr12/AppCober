@@ -177,7 +177,7 @@ const ProjectSummary = () => {
                 <div className="d-flex align-items-center">
                   <BsPersonFill size={16} className="text-primary" />
                   <div className="ms-2">
-                    <h5 className="mb-0 text-body">Razón Social</h5>
+                    <h5 className="mb-0 text-body">Nombre</h5>
                   </div>
                 </div>
                 <div>
@@ -192,7 +192,7 @@ const ProjectSummary = () => {
                 <div className="d-flex align-items-center">
                 <BsGeoAltFill size={16} className="text-primary" />
                   <div className="ms-2">
-                    <h5 className="mb-0 text-body">Cápitas</h5>
+                    <h5 className="mb-0 text-body">Edad</h5>
                   </div>
                 </div>
                 <div>
@@ -207,7 +207,7 @@ const ProjectSummary = () => {
                 <div className="d-flex align-items-center">
                   <BsCreditCard2BackFill size={16} className="text-primary" />
                   <div className="ms-2">
-                    <h5 className="mb-0 text-body">Nombre del Contacto</h5>
+                    <h5 className="mb-0 text-body">Tipo de Afiliación</h5>
                   </div>
                 </div>
                 <div>

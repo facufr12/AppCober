@@ -20,12 +20,24 @@ const ProspectForm = ({ show, handleClose }) => {
   const [toastTitle, setToastTitle] = useState(""); // Título del Toast
   const [isLoading, setIsLoading] = useState(false); // Estado para manejar el loading
 
+  const mapeoEstados = {
+    "Lead": 10, // Contacto inicial
+    "1º Contacto": 25, // Primer contacto establecido
+    "Calificado Cotización": 50, // Cliente interesado, solicitó cotización
+    "Calificado Póliza": 75, // Cliente evaluando póliza
+    "Calificado Pago": 90, // Cliente listo para pagar
+    "Venta": 100 // Venta completada
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true); // Activar el estado de loading
 
     // Obtén la URL base desde el archivo .env
     const apiUrl = process.env.REACT_APP_API_URL;
+
+// Calcula la evolución basada en el estado seleccionado
+    const evolucion = mapeoEstados[estado] || 0 // Si el estado no está en el mapeo, asigna 0
 
     // Realiza la petición fetch
     try {
@@ -42,6 +54,7 @@ const ProspectForm = ({ show, handleClose }) => {
             correo,
             partido,
             estado,
+            evolucion,
             vendedor: asignarVendedor ? userData?.vendedor : null // Envío del vendedor desde userData si se selecciona el checkbox
           })
         }
@@ -248,46 +261,46 @@ const ProspectForm = ({ show, handleClose }) => {
                 value={estado}
                 onChange={(e) => setEstado(e.target.value)}
                 required
-              >
+              >    
                 <option value="">Selecciona un estado</option>
                 <option value="Lead"> Lead </option>
-                <option value="Primercontacto">
+                <option value="1º Contacto">
                 1º Contacto
                 </option>
-                <option value="CalificadoCotización ">
+                <option value="Calificando Cotización">
                 Calificado Cotización 
                 </option>
-                <option value="CalificadoPóliza ">
-                Calificado Póliza 
+                <option value="Calificado Póliza">
+                Calificado Póliza  
                 </option>
-                <option value="CalificadoPago">Calificado Pago</option>
+                <option value="Calificadoo Pago">Calificado Pago</option>
                 <option value="Venta">Venta</option>
-                <option value="Fueradezona">
+                <option value="Fuera de zona">
                 Fuera de zona
                 </option>
-                <option value="Fueradeedad">Fuera de edad</option>
+                <option value="Fuera de edad">Fuera de edad</option>
                 <option value="Preexistencia">
                 Preexistencia
                 </option>
                 <option value="Reafiliación">
                 Reafiliación
                 </option>
-                <option value="Nocontesta">No contesta</option>
-                <option value="pruebainterna">
+                <option value="No contesta">No contesta</option>
+                <option value="prueba interna">
                 prueba interna
                 </option>
 
-                <option value="Yaessocio">
+                <option value="Ya es socio">
                 Ya es socio
                 </option>
 
-                <option value="BuscaotraCobertura">Busca otra Cobertura</option>
+                <option value="Busca otra Cobertura">Busca otra Cobertura</option>
                 
-                <option value="Teléfonoerróneo">Teléfono erróneo</option>
+                <option value="Teléfono erróneo">Teléfono erróneo</option>
                 
-                <option value="Noleinteresaeconómico">No le interesa (económico)</option>
+                <option value="No le interesa (económico)">No le interesa (económico)</option>
                 
-                <option value="Noleinteresacartilla">No le interesa cartilla</option>
+                <option value="No le interesa cartilla">No le interesa cartilla</option>
               </Form.Control>
             </Form.Group>
 

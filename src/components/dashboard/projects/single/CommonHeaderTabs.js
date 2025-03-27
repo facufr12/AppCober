@@ -14,7 +14,9 @@ const CommonHeaderTabs = () => {
 	const handleBack = () => {
 		navigate('/user/instructor'); // Redirige al hacer clic en el botón
 	};
-
+	const handleCrearPoliza = () => {
+		navigate('/user/checkout'); // Redirige a la página de creación de póliza
+	  }
 	return (
 		<Fragment>
 			<Row>

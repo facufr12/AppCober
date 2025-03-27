@@ -26,26 +26,26 @@ const Instructor = () => {
   const [selectedEstado, setSelectedEstado] = useState("");
   const [showModal, setShowModal] = useState(false);
   const { userData } = useAuth();
-  const estados = [
-    "Lead",
-    "1º Contacto",
-    "Calificado Cotización ",
-    "Calificado Póliza ",
-    "Calificado Pago",
-    "Venta",
-    "Fuera de zona",
-    "Fuera de edad",
-    "Preexistencia",
-    "Reafiliación",
-    "No contesta",
-    "prueba interna",
-    "Ya es socio",
-    "Busca otra Cobertura",
-    "Teléfono erróneo",
-    "No le interesa (económico)",
-    "No le interesa cartilla",
-  ];
-
+  const mapeoEstados = {
+    "Lead": 10,
+    "1º Contacto": 25,
+    "Calificado Cotización": 50,
+    "Calificado Póliza": 75,
+    "Calificado Pago": 90,
+    "Venta": 100,
+    "Fuera de zona": 0,
+    "Fuera de edad": 0,
+    "Preexistencia": 0,
+    "Reafiliación": 0,
+    "No contesta": 0,
+    "prueba interna": 0,
+    "Ya es socio": 0,
+    "Busca otra Cobertura": 0,
+    "Teléfono erróneo": 0,
+    "No le interesa (económico)": 0,
+    "No le interesa cartilla": 0,
+  };
+  const estados = Object.keys(mapeoEstados);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -97,17 +97,22 @@ const Instructor = () => {
     setIsLoading(true);
     try {
       const apiUrl = process.env.REACT_APP_API_URL;
-      const response = await fetch(
-        `${apiUrl}?func=cambiarEstadoDato`,
-        {
-          method: "POST",
-          body: JSON.stringify({ id, estado }),
-        }
-      );
+
+      // Calcula la evolución basada en el estado
+      const evolucion = mapeoEstados[estado] || 0;
+
+      console.log("Datos enviados al backend:", { id, estado, evolucion });
+
+      const response = await fetch(`${apiUrl}?func=cambiarEstadoDato`, {
+        method: "POST",
+        
+        body: JSON.stringify({ id, estado, evolucion }), // Incluye evolución
+      });
 
       if (!response.ok) {
         throw new Error("Error al enviar los datos");
       }
+
       const resultado = await response.json();
       setToastTitle("Éxito");
       setToastMessage(
@@ -115,7 +120,7 @@ const Instructor = () => {
       );
       setShowToast(true);
     } catch (error) {
-      console.error("Error en la solicitud:", error);
+      console.error("Error en la solicitud:", error.message);
       setToastTitle("Error");
       setToastMessage(
         "Error al enviar los datos. Por favor, intenta nuevamente."
@@ -206,20 +211,18 @@ const Instructor = () => {
                   <div className="d-flex justify-content-between border-bottom py-2 align-items-center">
                     <span>Estado</span>
                     <div className="d-flex align-items-center">
-                      <Form.Select
-                        value={person.estado}
-                        onChange={(e) =>
-                          handleEstadoChange(person, e.target.value)
-                        }
-                        className="text-dark ms-3"
-                        style={{ marginLeft: "10px", width: "150px" }}
-                      >
-                        {estados.map((estado, index) => (
-                          <option key={index} value={estado}>
-                            {estado}
-                          </option>
-                        ))}
-                      </Form.Select>
+                    <Form.Select
+  value={person.estado}
+  onChange={(e) => handleEstadoChange(person, e.target.value)}
+  className="text-dark ms-3"
+  style={{ marginLeft: "10px", width: "150px" }}
+>
+  {estados.map((estado, index) => (
+    <option key={index} value={estado}>
+      {estado}
+    </option>
+  ))}
+</Form.Select>
                       <Button
                         variant="primary"
                         style={{
@@ -459,18 +462,18 @@ const Instructor = () => {
           />
         </Col>
         <Col>
-          <Form.Select
-            value={selectedEstado}
-            onChange={(e) => setSelectedEstado(e.target.value)}
-            className="mb-3"
-          >
-            <option value="">Filtrar por Estado</option>
-            {estados.map((estado, index) => (
-              <option key={index} value={estado}>
-                {estado}
-              </option>
-            ))}
-          </Form.Select>
+        <Form.Select
+  value={selectedEstado}
+  onChange={(e) => setSelectedEstado(e.target.value)}
+  className="mb-3"
+>
+  <option value="">Filtrar por Estado</option>
+  {estados.map((estado, index) => (
+    <option key={index} value={estado}>
+      {estado}
+    </option>
+  ))}
+</Form.Select>
         </Col>
       </Row>
       {loading ? (
