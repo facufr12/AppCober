@@ -207,7 +207,11 @@ const ProjectSummary = () => {
                 <div className="d-flex align-items-center">
                   <BsCreditCard2BackFill size={16} className="text-primary" />
                   <div className="ms-2">
+<<<<<<< HEAD
                     <h5 className="mb-0 text-body">Tipo de Afiliación</h5>
+=======
+                    <h5 className="mb-0 text-body">Afiliación</h5>
+>>>>>>> 3e23ccb89037b8f5f211a26c8f428a6cc4cf3f22
                   </div>
                 </div>
                 <div>
