@@ -15,36 +15,35 @@ const OverallProgressChartOptions = {
         radialBar: {
             dataLabels: {
                 name: {
-                    fontSize: '14px', // Tamaño del label
+                    fontSize: '14px',
                     color: '#888',
                     offsetY: 5,
                 },
                 value: {
-                    fontSize: '40px', // Tamaño del dato (aumentado)
-                    color: '#754ffe', // Color del dato
-                    fontWeight: 'bold', // Hace el texto más grueso
+                    fontSize: '40px',
+                    color: '#754ffe',
+                    fontWeight: 'bold',
                     offsetY: 0,
                 },
             },
             track: {
-                background: '#e0e0e0', // Color de fondo de la barra
-                strokeWidth: '100%', // Ancho de la barra de fondo
+                background: '#e0e0e0',
+                strokeWidth: '100%',
             },
         },
     },
     fill: {
-        colors: ['#754ffe'], // Color de la barra radial
+        colors: ['#754ffe'],
     },
-    labels: [''], // Esto se puede usar para los labels en el gráfico
+    labels: [''],
 };
 
 const OverallProgressChart = () => {
     const location = useLocation();
-    const { prospecto } = location.state || {}; // Obtener prospecto del estado
+    const { prospecto } = location.state || {};
 
-    // Verificar si prospecto y evolucion están definidos
-    console.log('Prospecto:', prospecto);
-    const series = [Math.round(prospecto?.evolucion ?? 0)];
+    // Multiplica por 100 y redondea
+    const evolucion = Math.round(Number(prospecto?.evolucion ?? 0) * 100);
 
     return (
         <Card className="mb-4">
@@ -52,10 +51,19 @@ const OverallProgressChart = () => {
                 <h4 className="mb-3">Evolución</h4>
                 <ApexCharts
                     options={OverallProgressChartOptions}
-                    series={series}
+                    series={[evolucion]} // pasa valor ya multiplicado por 100
                     type="radialBar"
                     height={350}
                 />
+                <div
+                    role="progressbar"
+                    aria-valuenow={evolucion}
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                    className="sr-only"
+                >
+                    Evolución: {evolucion}%
+                </div>
             </Card.Body>
         </Card>
     );
