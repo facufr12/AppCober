@@ -44,8 +44,7 @@ const OverallProgressChart = () => {
 
     // Verificar si prospecto y evolucion están definidos
     console.log('Prospecto:', prospecto);
-
-    const series = [prospecto?.evolucion ?? 0]; // Valor por defecto 0 si no existe
+    const series = [Math.round(prospecto?.evolucion ?? 0)];
 
     return (
         <Card className="mb-4">
