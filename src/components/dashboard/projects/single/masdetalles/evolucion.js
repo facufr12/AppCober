@@ -16,12 +16,12 @@ const OverallProgressChartOptions = {
             dataLabels: {
                 name: {
                     fontSize: '14px', // Tamaño del label
-                    color: '#e0e0e0',
+                    color: '#888',
                     offsetY: 5,
                 },
                 value: {
                     fontSize: '40px', // Tamaño del dato (aumentado)
-                    color: '#e0e0e0', // Color del dato
+                    color: '#754ffe', // Color del dato
                     fontWeight: 'bold', // Hace el texto más grueso
                     offsetY: 0,
                 },
@@ -33,7 +33,7 @@ const OverallProgressChartOptions = {
         },
     },
     fill: {
-        colors: ['#e82e8a'], // Color de la barra radial
+        colors: ['#754ffe'], // Color de la barra radial
     },
     labels: [''], // Esto se puede usar para los labels en el gráfico
 };
